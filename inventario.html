@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRUD con Excel y Guardado Local</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="css/inventario.css">
+</head>
+<body>
+
+  <h1>Inventario De Activos</h1>
+  <h4>Cargue su Archivo de excel o Genere uno desde cero</h4>
+
+  <div class="form-group">
+    <input type="number" id="activo" placeholder="Activo (número)" />
+    <input type="text" id="detalles" placeholder="Detalles" />
+    <input type="text" id="ubicacion" placeholder="Ubicación" />
+    <input type="text" id="caso" placeholder="Caso" />
+    <select id="enviado">
+      <option value="Sí">Sí</option>
+      <option value="No">No</option>
+    </select>
+    <input type="text" id="casoEnvio" placeholder="Caso de Envío" />
+    <button onclick="agregarRegistro()">Agregar</button>
+    <button onclick="exportarExcel()">Exportar a Excel</button>
+    <input type="file" id="archivoExcel" accept=".xlsx, .xls" onchange="importarExcel()" />
+  </div>
+
+  <table id="tabla">
+    <thead>
+      <tr>
+        <th>Activo</th>
+        <th>Detalles</th>
+        <th>Ubicación</th>
+        <th>Caso</th>
+        <th>Enviado</th>
+        <th>Caso de Envío</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="js/inventario.js"></script>
+    
+  </script>
+</body>
+</html>

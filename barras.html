@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Generador de Códigos de Barras</title>
+
+  <!-- Librería JsBarcode -->
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
+  <!-- Estilos -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f2f2f2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      width: calc(100% - 20px);
+      max-width: 300px;
+      box-sizing: border-box;
+    }
+
+    button {
+      cursor: pointer;
+      background-color: #cf7327;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #barcode {
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      input, button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Generador de Código de Barras</h1>
+
+  <div class="container">
+    <input type="text" id="codigoInput" placeholder="Ingrese el código" />
+    <button onclick="generarCodigo()">Codigos Barra</button>
+    <svg id="barcode"></svg>
+    <button onclick="Inicio()">Inicio</button>
+  </div>
+  
+
+  <!-- Script para generar el código -->
+  <script>
+    function generarCodigo() {
+      const codigo = document.getElementById("codigoInput").value.trim();
+      if (!codigo) {
+        alert("Por favor ingrese un valor.");
+        return;
+      }
+      JsBarcode("#barcode", codigo, {
+        format: "CODE128",
+        lineColor: "#000",
+        width: 2,
+        height: 100,
+        displayValue: true
+      });
+    }
+    function Inicio() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
