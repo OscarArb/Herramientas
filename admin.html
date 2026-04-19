@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soporte TI |Administracion</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 10px;
+        }
+
+        input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        button {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-edit {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-login {
+            width: 100%;
+            background: #2563eb;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        #panel {
+            display: none;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        @media (max-width:768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            th,
+            td {
+                font-size: 14px;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- LOGIN -->
+        <div class="card" id="login">
+            <h1>🔐Login</h1>
+            <input type="password" id="password" placeholder="Ingrese la contraseña">
+            <br><br>
+            <button class="btn-login" onclick="login()">Ingresar</button>
+        </div>
+
+        <!-- PANEL -->
+        <div id="panel">
+
+            <div class="card">
+                <h1>📋 Administracion</h1>
+                <div class="top-actions">
+                    <a href="/index.html" class="btn-nav">🏠 Volver al inicio</a>
+                </div>
+                <input type="hidden" id="id">
+
+                <div class="form-grid">
+                    <input type="text" id="nombre" placeholder="Nombre del enlace">
+                    <input type="text" id="url" placeholder="https://ejemplo.com">
+                    <button class="btn-primary" onclick="guardar()">Guardar</button>
+                </div>
+            </div>
+
+            <div class="card table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>URL</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla"></tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const API = "https://script.google.com/macros/s/AKfycbwOIalzfiTQtT181Gr7yytvpL1j5MEkFQ8IigWaHyTi-suXcVeuOUmw9PfNmFYeb6VM/exec";
+        const CLAVE = "Admin2026*";
+
+        function login() {
+            const pass = document.getElementById("password").value;
+
+            if (pass === CLAVE) {
+                document.getElementById("login").style.display = "none";
+                document.getElementById("panel").style.display = "block";
+                cargar();
+            } else {
+                alert("Contraseña incorrecta");
+            }
+        }
+
+        async function cargar() {
+            const res = await fetch(API);
+            const data = await res.json();
+
+            const tabla = document.getElementById("tabla");
+            tabla.innerHTML = "";
+
+            data.forEach(link => {
+                tabla.innerHTML += `
+            <tr>
+                <td>${link.nombre}</td>
+                <td>
+                    <a href="${link.url}" target="_blank">
+                        ${link.url}
+                    </a>
+                </td>
+                <td>
+                    <div class="actions">
+                        <button class="btn-edit" onclick='editar(${JSON.stringify(link)})'>
+                            Editar
+                        </button>
+                        <button class="btn-delete" onclick='eliminar(${link.id})'>
+                            Eliminar
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+            });
+        }
+
+        function editar(link) {
+            document.getElementById("id").value = link.id;
+            document.getElementById("nombre").value = link.nombre;
+            document.getElementById("url").value = link.url;
+        }
+
+        async function guardar() {
+            const id = document.getElementById("id").value;
+            const nombre = document.getElementById("nombre").value;
+            const url = document.getElementById("url").value;
+
+            const accion = id ? "editar" : "crear";
+
+            await fetch(API, {
+                method: "POST",
+                body: JSON.stringify({
+                    accion,
+                    id,
+                    nombre,
+                    url,
+                    password: CLAVE
+                })
+            });
+
+            limpiar();
+            cargar();
+        }
+
+        async function eliminar(id) {
+            if (!confirm("¿Desea eliminar este enlace?")) return;
+
+            await fetch(API, {
+                method: "POST",
+                body: JSON.stringify({
+                    accion: "eliminar",
+                    id,
+                    password: CLAVE
+                })
+            });
+
+            cargar();
+        }
+
+        function limpiar() {
+            document.getElementById("id").value = "";
+            document.getElementById("nombre").value = "";
+            document.getElementById("url").value = "";
+        }
+    </script>
+
+</body>
+
+</html>
