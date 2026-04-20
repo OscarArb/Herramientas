@@ -52,4 +52,29 @@ h1 {
   }
 }
 
+.top-actions{
+    display:flex;
+    gap:10px;
+    justify-content:flex-end;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
 
+.btn-install{
+    background:#10b981;
+    color:white;
+    padding:10px 18px;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn-nav{
+    background:#2563eb;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+}
