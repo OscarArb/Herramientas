@@ -4,22 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#2563eb">
-  <link rel="apple-touch-icon" href="icon-192.png">
-  <title>SoporteTI</title>
   <link rel="stylesheet" href="css/index.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <title>SoporteTI</title>
 </head>
 
 <body>
-  
+
   <div class="container">
     <h1>Mi Escritorio Virtual</h1>
     <div class="button-grid">
       <a href="admin.html" class="btn-link" target="_blank">Administracion</a>
       <button id="installBtn" class="btn-install" style="display:none;">
         📲 Instalar aplicación
-    </button>
+      </button>
     </div>
     <div id="links"></div>
     <div class="button-grid">
@@ -58,32 +57,11 @@
       navigator.serviceWorker.register("service-worker.js")
         .then(() => console.log("PWA activa"));
     }
-    let deferredPrompt;
-const installBtn = document.getElementById("installBtn");
-
-window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    installBtn.style.display = "inline-block";
-});
-
-installBtn.addEventListener("click", async () => {
-    if (!deferredPrompt) {
-        alert("En iPhone usa Compartir → Agregar a pantalla de inicio");
-        return;
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
     }
 
-    deferredPrompt.prompt();
 
-    const { outcome } = await deferredPrompt.userChoice;
-
-    if (outcome === "accepted") {
-        console.log("App instalada");
-    }
-
-    deferredPrompt = null;
-    installBtn.style.display = "none";
-});
   </script>
 </body>
 
