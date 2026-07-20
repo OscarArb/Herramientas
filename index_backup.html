@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <title>SoporteTI</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Mi Escritorio Virtual</h1>
+    <div class="button-grid">
+      <a href="admin.html" class="btn-link" target="_blank">Administracion</a>
+      <button id="installBtn" class="btn-install" style="display:none;">
+        📲 Instalar aplicación
+      </button>
+    </div>
+    <div id="links"></div>
+    <div class="button-grid">
+
+      <div class="bottom-footer">
+        <p>Copyright &copy; <a href="https://mi-portafolio-omega-puce.vercel.app/" style="text-decoration: none;">Oscar
+            ArB</a> - 2025 Version 1.0.1</p>
+      </div>
+
+    </div>
+  </div>
+
+  <br>
+
+  <script>
+    const API = "https://script.google.com/macros/s/AKfycbwOIalzfiTQtT181Gr7yytvpL1j5MEkFQ8IigWaHyTi-suXcVeuOUmw9PfNmFYeb6VM/exec";
+
+    async function cargarLinks() {
+      const res = await fetch(API);
+      const data = await res.json();
+
+      const div = document.getElementById("links");
+      div.innerHTML = "";
+
+      data.forEach(link => {
+        div.innerHTML += `
+            <div class="button-grid">
+                <a href="${link.url}" class="btn-link" target="_blank">${link.nombre}</a>
+            </div>
+        `;
+      });
+    }
+
+    cargarLinks();
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("PWA activa"));
+    }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
+
+
+  </script>
+</body>
+
+</html>
