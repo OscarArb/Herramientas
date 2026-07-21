@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Herramientas Omega</title>
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" type="image/png" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <style>
         * {
@@ -170,28 +172,27 @@
 
         }
 
-        @media(max-width:768px){
+        @media(max-width:768px) {
 
-            .container{
+            .container {
 
-                padding:20px;
-
-            }
-
-            h1{
-
-                font-size:28px;
+                padding: 20px;
 
             }
 
-            .card{
+            h1 {
 
-                padding:22px;
+                font-size: 28px;
+
+            }
+
+            .card {
+
+                padding: 22px;
 
             }
 
         }
-
     </style>
 
 </head>
@@ -209,7 +210,17 @@
         <p class="subtitulo">
             Portal de acceso a herramientas de soporte y consulta.
         </p>
+        <div class="button-grid">
 
+            <button id="installBtn" class="btn-install" style="display:none;">
+
+                <i class="fa-solid fa-download"></i>
+
+                Instalar Aplicación
+
+            </button>
+
+        </div>
         <div class="grid">
 
             <a href="links_Soporte.html" class="card">
@@ -268,6 +279,13 @@
 
     </div>
 
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/sw.js")
+                .then(() => console.log("PWA registrada"))
+                .catch(err => console.error(err));
+        }
+    </script>
 </body>
 
 </html>
