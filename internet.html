@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Consulta Servicios Internet</title>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8, #1e3a8a);
+            min-height: 100vh;
+            padding: 25px;
+        }
+
+        .contenedor {
+
+            max-width: 1600px;
+            margin: auto;
+
+            background: #fff;
+
+            border-radius: 18px;
+
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .20);
+
+            padding: 25px;
+
+            animation: aparecer .6s;
+
+        }
+
+        @keyframes aparecer {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        h1 {
+
+            text-align: center;
+
+            color: #1e3a8a;
+
+            margin-bottom: 25px;
+
+            font-size: 34px;
+
+        }
+
+        .cargando {
+
+            text-align: center;
+
+            padding: 60px;
+
+            color: #2563eb;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+        }
+
+        .spinner {
+
+            width: 50px;
+
+            height: 50px;
+
+            margin: 20px auto;
+
+            border-radius: 50%;
+
+            border: 5px solid #dbeafe;
+
+            border-top: 5px solid #2563eb;
+
+            animation: girar .8s linear infinite;
+
+        }
+
+        @keyframes girar {
+
+            to {
+
+                transform: rotate(360deg);
+
+            }
+
+        }
+
+        table.dataTable {
+
+            width: 100% !important;
+
+            border-collapse: collapse !important;
+
+        }
+
+        table.dataTable thead {
+
+            background: #2563eb;
+
+            color: #fff;
+
+        }
+
+        table.dataTable thead th {
+
+            color: white !important;
+
+            padding: 15px;
+
+            text-transform: uppercase;
+
+            font-size: 13px;
+
+        }
+
+        table.dataTable tbody td {
+
+            padding: 12px;
+
+            font-size: 14px;
+
+        }
+
+        table.dataTable tbody tr {
+
+            transition: .2s;
+
+        }
+
+        table.dataTable tbody tr:hover {
+
+            background: #eff6ff;
+
+        }
+
+        .dataTables_wrapper {
+
+            margin-top: 20px;
+
+        }
+
+        .dataTables_filter {
+
+            margin-bottom: 15px;
+
+        }
+
+        .dataTables_filter input {
+
+            border-radius: 30px !important;
+
+            border: 1px solid #cbd5e1 !important;
+
+            padding: 10px 18px !important;
+
+            width: 280px;
+
+        }
+
+        .dataTables_filter input:focus {
+
+            outline: none;
+
+            border: 1px solid #2563eb !important;
+
+            box-shadow: 0 0 8px rgba(37, 99, 235, .35);
+
+        }
+
+        .dataTables_length select {
+
+            border-radius: 10px;
+
+            padding: 5px;
+
+        }
+
+        .dataTables_paginate .paginate_button.current {
+
+            background: #2563eb !important;
+
+            color: white !important;
+
+            border: none !important;
+
+            border-radius: 8px;
+
+        }
+
+        .dataTables_paginate .paginate_button:hover {
+
+            background: #1d4ed8 !important;
+
+            color: white !important;
+
+        }
+
+        @media(max-width:768px) {
+
+            body {
+
+                padding: 10px;
+
+            }
+
+            .contenedor {
+
+                padding: 15px;
+
+            }
+
+            h1 {
+
+                font-size: 24px;
+
+            }
+
+            .dataTables_filter {
+
+                text-align: left !important;
+
+            }
+
+            .dataTables_filter input {
+
+                width: 100%;
+
+                margin-top: 10px;
+
+            }
+
+        }
+
+        /* Botón flotante volver */
+        .btn-volver {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: #ffffff;
+            color: #2563eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .25);
+            transition: .3s;
+            z-index: 9999;
+        }
+
+        .btn-volver:hover {
+            transform: translateX(-3px) scale(1.08);
+            background: #2563eb;
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    <a href="index.html" class="btn-volver" title="Volver al inicio">
+        &#8592;
+    </a>
+    <div class="contenedor">
+
+        <h1>🌐 Consolidado Internet</h1>
+
+        <div id="loading" class="cargando">
+
+            Cargando información...
+
+            <div class="spinner"></div>
+
+        </div>
+
+        <table id="tabla" class="display nowrap" style="display:none;width:100%;">
+
+            <thead>
+
+                <tr>
+
+                    <th>Código SV</th>
+                    <th>Nombre SV</th>
+                    <th>Dirección</th>
+                    <th>Municipio</th>
+                    <th>Identificador</th>
+                    <th>Capacidad</th>
+                    <th>Tecnología</th>
+                    <th>Proveedor</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+
+    <script>
+
+        const API = "https://script.google.com/macros/s/AKfycbx4tOTC9ww0sOiFaoFVoHCYetlnBtSc4I-GNRi7ZT58ztihFIqAtss9esXc21V8Oodx/exec?hoja=Internet";
+
+        fetch(API)
+
+            .then(r => r.json())
+
+            .then(datos => {
+
+                let filas = "";
+
+                datos.forEach(x => {
+
+                    filas += `
+
+<tr>
+
+<td>${x.codigo}</td>
+<td>${x.nombre}</td>
+<td>${x.direccion}</td>
+<td>${x.municipio}</td>
+<td>${x.identificador}</td>
+<td>${x.capacidad}</td>
+<td>${x.tecnologia}</td>
+<td>${x.proveedor}</td>
+
+</tr>
+
+`;
+
+                });
+
+                document.querySelector("#tabla tbody").innerHTML = filas;
+
+                document.getElementById("loading").style.display = "none";
+
+                document.getElementById("tabla").style.display = "table";
+
+                $("#tabla").DataTable({
+
+                    pageLength: 50,
+
+                    responsive: true,
+
+                    scrollX: true,
+
+                    deferRender: true,
+
+                    processing: true,
+
+                    order: [[0, "asc"]],
+
+                    language: {
+
+                        url: "https://cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json"
+
+                    }
+
+                });
+
+            });
+
+    </script>
+
+</body>
+
+</html>

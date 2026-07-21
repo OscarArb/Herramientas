@@ -2,67 +2,272 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/index.css">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#ffffff">
-  <title>SoporteTI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas Omega</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2563eb, #1e40af, #0f172a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .25);
+            animation: aparecer .6s ease;
+        }
+
+        @keyframes aparecer {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .logo {
+
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin: auto;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 42px;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, .35);
+
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #1e3a8a;
+            font-size: 36px;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: #64748b;
+            margin-top: 10px;
+            margin-bottom: 40px;
+        }
+
+        .grid {
+
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+
+        }
+
+        .card {
+
+            text-decoration: none;
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+
+            transition: .30s;
+
+            border: 1px solid #e2e8f0;
+
+            color: inherit;
+
+        }
+
+        .card:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow: 0 20px 40px rgba(37, 99, 235, .20);
+
+            border-color: #2563eb;
+
+        }
+
+        .icono {
+
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+            font-size: 28px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .card h2 {
+
+            color: #1e3a8a;
+            margin-bottom: 12px;
+            font-size: 23px;
+
+        }
+
+        .card p {
+
+            color: #64748b;
+            line-height: 1.6;
+
+        }
+
+        .footer {
+
+            text-align: center;
+            margin-top: 40px;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+
+        }
+
+        .footer a {
+
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: bold;
+
+        }
+
+        @media(max-width:768px){
+
+            .container{
+
+                padding:20px;
+
+            }
+
+            h1{
+
+                font-size:28px;
+
+            }
+
+            .card{
+
+                padding:22px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-  <div class="container">
-    <h1>Mi Escritorio Virtual</h1>
-    <div class="button-grid">
-      <a href="admin.html" class="btn-link" target="_blank">Administracion</a>
-      <button id="installBtn" class="btn-install" style="display:none;">
-        📲 Instalar aplicación
-      </button>
+    <div class="container">
+
+        <div class="logo">
+            <i class="fa-solid fa-toolbox"></i>
+        </div>
+
+        <h1>Herramientas Omega</h1>
+
+        <p class="subtitulo">
+            Portal de acceso a herramientas de soporte y consulta.
+        </p>
+
+        <div class="grid">
+
+            <a href="links_Soporte.html" class="card">
+
+                <div class="icono">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                </div>
+
+                <h2>Links Soporte</h2>
+
+                <p>
+                    Acceda rápidamente a todas las herramientas utilizadas por el equipo de soporte técnico.
+                </p>
+
+            </a>
+
+            <a href="Links_Gana.html" class="card">
+
+                <div class="icono">
+                    <i class="fa-solid fa-link"></i>
+                </div>
+
+                <h2>Links Gana</h2>
+
+                <p>
+                    Consulta centralizada de enlaces y accesos relacionados con la plataforma GANA.
+                </p>
+
+            </a>
+
+            <a href="internet.html" class="card">
+
+                <div class="icono">
+                    <i class="fa-solid fa-network-wired"></i>
+                </div>
+
+                <h2>Consolidado Internet</h2>
+
+                <p>
+                    Consulte el inventario consolidado de servicios de Internet, tecnología y proveedores.
+                </p>
+
+            </a>
+
+        </div>
+
+        <div class="footer">
+
+            Copyright &copy;
+            <a href="https://mi-portafolio-omega-puce.vercel.app/" target="_blank">
+                Oscar ArB
+            </a>
+            - 2026 | Versión 2.0
+
+        </div>
+
     </div>
-    <div id="links"></div>
-    <div class="button-grid">
 
-      <div class="bottom-footer">
-        <p>Copyright &copy; <a href="https://mi-portafolio-omega-puce.vercel.app/" style="text-decoration: none;">Oscar
-            ArB</a> - 2025 Version 1.0.1</p>
-      </div>
-
-    </div>
-  </div>
-
-  <br>
-
-  <script>
-    const API = "https://script.google.com/macros/s/AKfycbwOIalzfiTQtT181Gr7yytvpL1j5MEkFQ8IigWaHyTi-suXcVeuOUmw9PfNmFYeb6VM/exec";
-
-    async function cargarLinks() {
-      const res = await fetch(API);
-      const data = await res.json();
-
-      const div = document.getElementById("links");
-      div.innerHTML = "";
-
-      data.forEach(link => {
-        div.innerHTML += `
-            <div class="button-grid">
-                <a href="${link.url}" class="btn-link" target="_blank">${link.nombre}</a>
-            </div>
-        `;
-      });
-    }
-
-    cargarLinks();
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js")
-        .then(() => console.log("PWA activa"));
-    }
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js');
-    }
-
-
-  </script>
 </body>
 
 </html>

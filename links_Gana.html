@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Links Gana | Herramientas Omega</title>
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2563eb">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2563eb, #1e40af, #0f172a);
+            padding: 25px;
+        }
+
+        .wrapper {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .volver {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: .3s;
+        }
+
+        .volver:hover {
+            transform: translateX(-6px);
+        }
+
+        .container {
+            background: white;
+            border-radius: 22px;
+            padding: 35px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, .25);
+            animation: aparecer .5s;
+        }
+
+        @keyframes aparecer {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .logo {
+
+            width: 90px;
+            height: 90px;
+
+            margin: auto;
+
+            border-radius: 50%;
+
+            background: linear-gradient(135deg, #10b981, #059669);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+            font-size: 40px;
+
+            box-shadow: 0 10px 30px rgba(16, 185, 129, .35);
+
+        }
+
+        h1 {
+
+            text-align: center;
+            margin-top: 20px;
+            color: #065f46;
+            font-size: 34px;
+
+        }
+
+        .subtitulo {
+
+            text-align: center;
+            color: #64748b;
+            margin-top: 10px;
+            margin-bottom: 30px;
+
+        }
+
+        .button-grid {
+
+            margin-bottom: 15px;
+
+        }
+
+        .btn-link,
+        .btn-install {
+
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+
+            background: #10b981;
+
+            color: white;
+
+            padding: 16px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            transition: .25s;
+
+            border: none;
+
+            cursor: pointer;
+
+        }
+
+        .btn-link:hover,
+        .btn-install:hover {
+
+            background: #059669;
+
+            transform: translateY(-3px);
+
+            box-shadow: 0 10px 25px rgba(16, 185, 129, .30);
+
+        }
+
+        .contador {
+
+            text-align: center;
+            margin: 20px 0;
+            color: #475569;
+            font-weight: bold;
+
+        }
+
+        .bottom-footer {
+
+            margin-top: 35px;
+
+            border-top: 1px solid #e2e8f0;
+
+            padding-top: 20px;
+
+            text-align: center;
+
+            color: #64748b;
+
+        }
+
+        .bottom-footer a {
+
+            text-decoration: none;
+            color: #10b981;
+            font-weight: bold;
+
+        }
+
+        @media(max-width:768px) {
+
+            body {
+                padding: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .btn-link,
+            .btn-install {
+
+                font-size: 15px;
+                padding: 15px;
+
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <a href="index.html" class="volver">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Volver al Inicio
+
+        </a>
+
+        <div class="container">
+
+            <div class="logo">
+
+                <i class="fa-solid fa-link"></i>
+
+            </div>
+
+            <h1>Links Gana</h1>
+
+            <p class="subtitulo">
+
+                Accesos rápidos para la plataforma GANA.
+
+            </p>
+
+            <div class="button-grid">
+
+                <button id="installBtn"
+                    class="btn-install"
+                    style="display:none;">
+
+                    <i class="fa-solid fa-download"></i>
+
+                    Instalar Aplicación
+
+                </button>
+
+            </div>
+
+            <div class="contador">
+
+                <span id="totalLinks">
+
+                    Cargando enlaces...
+
+                </span>
+
+            </div>
+
+            <div id="links"></div>
+
+            <div class="bottom-footer">
+
+                Copyright &copy;
+
+                <a href="https://mi-portafolio-omega-puce.vercel.app/" target="_blank">
+
+                    Oscar ArB
+
+                </a>
+
+                - 2026 | Versión 2.0
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const API = "https://script.google.com/macros/s/AKfycbx4tOTC9ww0sOiFaoFVoHCYetlnBtSc4I-GNRi7ZT58ztihFIqAtss9esXc21V8Oodx/exec?hoja=Links_Gana";
+
+        async function cargarLinks() {
+
+            const res = await fetch(API);
+
+            const data = await res.json();
+
+            document.getElementById("totalLinks").innerHTML =
+                `<i class="fa-solid fa-link"></i> ${data.length} enlaces disponibles`;
+
+            const div = document.getElementById("links");
+
+            div.innerHTML = "";
+
+            data.forEach(link => {
+
+                div.innerHTML += `
+
+                <div class="button-grid">
+
+                    <a href="${link.url}"
+                       class="btn-link"
+                       target="_blank">
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        ${link.nombre}
+
+                    </a>
+
+                </div>
+
+                `;
+
+            });
+
+        }
+
+        cargarLinks();
+
+        if ("serviceWorker" in navigator) {
+
+            navigator.serviceWorker.register("/sw.js")
+                .then(() => console.log("PWA activa"));
+
+        }
+
+    </script>
+
+</body>
+
+</html>

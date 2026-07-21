@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soporte TI |Administracion</title>
+    <title>Links Gana | Administracion</title>
 
     <style>
         * {
@@ -12,6 +12,22 @@
             padding: 0;
             box-sizing: border-box;
             font-family: "Segoe UI", sans-serif;
+        }
+
+        td a {
+
+            color: #2563eb;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+        }
+
+        td a:hover {
+
+            text-decoration: underline;
+
         }
 
         body {
@@ -137,22 +153,6 @@
         button:hover {
 
             transform: translateY(-2px);
-
-        }
-
-        td a {
-
-            color: #2563eb;
-
-            text-decoration: none;
-
-            font-weight: 600;
-
-        }
-
-        td a:hover {
-
-            text-decoration: underline;
 
         }
 
@@ -359,7 +359,7 @@
 
         <!-- LOGIN -->
         <div class="card" id="login">
-            <h1>🔐 Administración Soporte</h1>
+            <h1>🔐 Administración Gana</h1>
 
             <p style="text-align:center;color:#64748b;margin-bottom:20px;">
                 Ingrese la contraseña para acceder al panel administrativo.
@@ -381,7 +381,7 @@
             <div class="card">
                 <h1>📋 Administracion</h1>
                 <div class="top-actions">
-                    <a href="/index.html" class="btn-nav">🏠 Volver al inicio</a>
+                    <a href="links_Soporte.html" class="btn-nav">🏠 Volver al inicio</a>
                 </div>
                 <input type="hidden" id="id">
 
@@ -418,8 +418,9 @@
     </div>
 
     <script>
-        const API = "https://script.google.com/macros/s/AKfycbwOIalzfiTQtT181Gr7yytvpL1j5MEkFQ8IigWaHyTi-suXcVeuOUmw9PfNmFYeb6VM/exec";
-        const CLAVE = "Admin2026*";
+        const HOJA = "Links_Gana";
+        const API = "https://script.google.com/macros/s/AKfycbx4tOTC9ww0sOiFaoFVoHCYetlnBtSc4I-GNRi7ZT58ztihFIqAtss9esXc21V8Oodx/exec?hoja=Links_Gana";
+        const CLAVE = "Gana2026*";
 
         function login() {
             const pass = document.getElementById("password").value;
@@ -487,6 +488,7 @@
                 method: "POST",
                 body: JSON.stringify({
                     accion,
+                    hoja: HOJA,
                     id,
                     nombre,
                     url,
@@ -505,6 +507,7 @@
                 method: "POST",
                 body: JSON.stringify({
                     accion: "eliminar",
+                    hoja: HOJA,
                     id,
                     password: CLAVE
                 })
